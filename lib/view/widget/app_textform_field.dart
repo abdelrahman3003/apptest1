@@ -9,11 +9,13 @@ class AppTextformField extends StatelessWidget {
     required this.title,
     required this.subtitle,
     this.isValid = true,
-     this.controller,
+     this.controller, this.onTap, this.keyboardType,
   });
   final String icon, title, subtitle;
   final bool isValid;
   final TextEditingController? controller;
+  final Function()? onTap;
+  final TextInputType? keyboardType;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,6 +43,8 @@ class AppTextformField extends StatelessWidget {
             ),
             subtitle: TextFormField(
               controller: controller,
+              keyboardType: keyboardType,
+              onTap: onTap,
               style: const TextStyle(fontSize: 14, color: Colors.black),
               decoration: InputDecoration(
                 isDense: true,

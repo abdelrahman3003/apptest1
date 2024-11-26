@@ -33,8 +33,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/mdi_user.svg
   String get mdiUser => 'assets/icons/mdi_user.svg';
 
+  /// File path: assets/icons/person.svg
+  String get person => 'assets/icons/person.svg';
+
   /// File path: assets/icons/phone.svg
   String get phone => 'assets/icons/phone.svg';
+
+  /// File path: assets/icons/vaadin_qrcode.svg
+  String get vaadinQrcode => 'assets/icons/vaadin_qrcode.svg';
 
   /// File path: assets/icons/visit_date.svg
   String get visitDate => 'assets/icons/visit_date.svg';
@@ -51,7 +57,9 @@ class $AssetsIconsGen {
         idNumber,
         mail,
         mdiUser,
+        person,
         phone,
+        vaadinQrcode,
         visitDate,
         visitTime
       ];
@@ -64,8 +72,12 @@ class $AssetsImagesGen {
   AssetGenImage get backgroundImage =>
       const AssetGenImage('assets/images/background_image.png');
 
+  /// File path: assets/images/background_image2.png
+  AssetGenImage get backgroundImage2 =>
+      const AssetGenImage('assets/images/background_image2.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [backgroundImage];
+  List<AssetGenImage> get values => [backgroundImage, backgroundImage2];
 }
 
 class Assets {

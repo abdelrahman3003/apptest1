@@ -13,9 +13,9 @@ class RegisterView extends StatelessWidget {
       body: Stack(
         children: [
           const RegisterBackground(),
-          const Positioned(top: 25, left: 0, right: 0, child: RegisterAppbar()),
+          const Positioned(top: 40, left: 0, right: 0, child: RegisterAppbar()),
           Positioned(
-              top: screenHeight * .13,
+              top: screenHeight * .2,
               left: 0,
               right: 0,
               bottom: 0,

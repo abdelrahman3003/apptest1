@@ -74,7 +74,14 @@ class AppStyles {
       color: Colors.black,
     );
   }
-
+  static TextStyle style12font500white(BuildContext context) {
+    return TextStyle(
+      fontSize: getResponsiveFontSize(context, fontsize: 12),
+      fontWeight: FontWeight.w500,
+      fontFamily: fontName,
+      color: Colors.white,
+    );
+  }
   static TextStyle style12font400black(BuildContext context) {
     return TextStyle(
       fontSize: getResponsiveFontSize(context, fontsize: 12),

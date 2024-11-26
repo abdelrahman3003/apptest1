@@ -1,8 +1,10 @@
 import 'package:apptest1/core/utils/app_colors.dart';
 import 'package:apptest1/core/utils/app_styles.dart';
+import 'package:apptest1/view/visitor_details_view.dart';
 import 'package:apptest1/view/widget/register_button.dart';
 import 'package:apptest1/gen/assets.gen.dart';
 import 'package:apptest1/view/widget/app_textform_field.dart';
+import 'package:apptest1/view/widget/register_model.dart';
 import 'package:flutter/material.dart';
 
 class RegisterBody extends StatefulWidget {
@@ -15,16 +17,22 @@ class RegisterBody extends StatefulWidget {
 bool nameValid = true;
 bool emailValid = true;
 bool dateValid = true;
+bool timeValid = true;
+
 bool idValid = true;
 final TextEditingController nameContrller = TextEditingController();
 final TextEditingController emaiContrller = TextEditingController();
 final TextEditingController idContrller = TextEditingController();
 final TextEditingController dateContrller = TextEditingController();
+final TextEditingController timeContrller = TextEditingController();
+final TextEditingController phoneContrller = TextEditingController();
+final TextEditingController reasonsContrller = TextEditingController();
 
 class _RegisterBodyState extends State<RegisterBody> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    RegisterModel registerModel = RegisterModel();
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -77,9 +85,11 @@ class _RegisterBodyState extends State<RegisterBody> {
                       isValid: nameValid,
                     ),
                     AppTextformField(
-                        icon: Assets.icons.phone,
-                        title: "Phone",
-                        subtitle: "Enter your phone"),
+                      icon: Assets.icons.phone,
+                      title: "Phone",
+                      subtitle: "Enter your phone",
+                      keyboardType: TextInputType.phone,
+                    ),
                     AppTextformField(
                       icon: Assets.icons.mail,
                       title: "Email",
@@ -93,17 +103,27 @@ class _RegisterBodyState extends State<RegisterBody> {
                       subtitle: "Click to pick a date",
                       controller: dateContrller,
                       isValid: dateValid,
+                      onTap: () {
+                        pickDate(context, dateContrller);
+                      },
                     ),
                     AppTextformField(
-                        icon: Assets.icons.visitTime,
-                        title: "Expected Visit Time",
-                        subtitle: "Click to pick a time"),
+                      icon: Assets.icons.visitTime,
+                      controller: timeContrller,
+                      title: "Expected Visit Time",
+                      subtitle: "Click to pick a time",
+                      isValid: timeValid,
+                      onTap: () {
+                        pickTime(context, timeContrller);
+                      },
+                    ),
                     AppTextformField(
                       icon: Assets.icons.idNumber,
                       title: "ID Number",
                       subtitle: "Enter your ID Number",
                       controller: idContrller,
                       isValid: idValid,
+                      keyboardType: TextInputType.number,
                     ),
                     AppTextformField(
                         icon: Assets.icons.bxsMessage,
@@ -115,7 +135,16 @@ class _RegisterBodyState extends State<RegisterBody> {
                         child: RegisterButton(
                           text: "Next Step",
                           onPressed: () {
-                            if (validator()) {}
+                            putData(registerModel: registerModel);
+                            if (validator()) {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => VisitorDetailsView(
+                                        registerModel: registerModel),
+                                  ));
+                              restData();
+                            }
                             setState(() {});
                           },
                         )),
@@ -140,9 +169,56 @@ class _RegisterBodyState extends State<RegisterBody> {
     if (dateContrller.text.isEmpty) {
       return dateValid = false;
     }
+    if (timeContrller.text.isEmpty) {
+      return timeValid = false;
+    }
     if (idContrller.text.isEmpty) {
       return idValid = false;
     }
+
     return true;
   }
+}
+
+restData() {
+  nameValid = true;
+  emailValid = true;
+  idValid = true;
+  dateValid = true;
+  timeValid = true;
+}
+
+Future<void> pickDate(
+    BuildContext context, TextEditingController controller) async {
+  DateTime? selectedDate = await showDatePicker(
+    context: context,
+    initialDate: DateTime.now(),
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2100),
+  );
+
+  if (selectedDate != null) {
+    controller.text = "${selectedDate.toLocal()}".split(' ')[0];
+  }
+}
+
+Future<void> pickTime(
+    BuildContext context, TextEditingController controller) async {
+  TimeOfDay? selectedTime = await showTimePicker(
+    context: context,
+    initialTime: TimeOfDay.now(),
+  );
+
+  if (selectedTime != null) {
+    controller.text = selectedTime.format(context);
+  }
+}
+
+void putData({required RegisterModel registerModel}) {
+  registerModel.title = nameContrller.text;
+  registerModel.email = emaiContrller.text;
+  registerModel.id = idContrller.text;
+  registerModel.date = dateContrller.text;
+  registerModel.time = timeContrller.text;
+  registerModel.phone = phoneContrller.text;
 }

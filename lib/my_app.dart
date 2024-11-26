@@ -1,4 +1,4 @@
-import 'package:apptest1/view/widget/register_view.dart';
+import 'package:apptest1/view/register_view.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
