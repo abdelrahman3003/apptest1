@@ -7,15 +7,22 @@ class RegisterAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SvgPicture.asset(
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width,
+      child: ListTile(
+        leading: SvgPicture.asset(
           "assets/icons/back.svg",
-          colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+          colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
         ),
-        Text("New Visitor Pre-access",
-            style: AppStyles.style24font500white(context))
-      ],
+        title: Center(
+          child: Text("New Visitor Pre-access",
+              style: AppStyles.style24font400white(context)),
+        ),
+        subtitle: Center(
+          child: Text("New Visitor Pre-access",
+              style: AppStyles.style14font400white(context)),
+        ),
+      ),
     );
   }
 }

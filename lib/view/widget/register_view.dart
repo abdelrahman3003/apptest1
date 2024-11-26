@@ -1,35 +1,25 @@
 import 'package:apptest1/view/widget/register_appbar.dart';
+import 'package:apptest1/view/widget/register_background.dart';
+import 'package:apptest1/view/widget/register_body.dart';
 import 'package:flutter/material.dart';
-import 'package:svg_flutter/svg.dart';
 
 class RegisterView extends StatelessWidget {
   const RegisterView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height *
-                0.4, // 40% من ارتفاع الشاشة
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background_image.png"),
-                fit: BoxFit.cover, // لتغطية المساحة المخصصة بالكامل
-              ),
-            ),
-          ),
-          const Positioned(
-            top: 1,
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                RegisterAppbar(),
-              ],
-            ),
-          ),
+          const RegisterBackground(),
+          const Positioned(top: 25, left: 0, right: 0, child: RegisterAppbar()),
+          Positioned(
+              top: screenHeight * .13,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: const RegisterBody()),
         ],
       ),
     );
